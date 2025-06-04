@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   ValidationPipe,
@@ -20,7 +21,7 @@ export class UserController {
     return this.userService.GetUsers();
   }
   @Get(':id')
-  getUserById(id: string) {
+  getUserById(@Param('id') id: string) {
     return this.userService.GetUserById(id);
   }
   @Post()
@@ -32,7 +33,7 @@ export class UserController {
   }
   @Patch(':id')
   updateUser(
-    id: string,
+    @Param('id') id: string,
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     updateUserDto: UpdateUserDto,
   ) {
