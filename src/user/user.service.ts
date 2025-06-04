@@ -7,12 +7,15 @@ import { UpdateUserDto } from './dto/update.user.dto';
 export class UserService {
   constructor(private prisma: PrismaService) {}
   async GetUsers() {
-    const users = await this.prisma.user.findMany();
+    const users = await this.prisma.user.findMany({
+      select: { firstName: true, lastName: true, email: true, id: true },
+    });
     return { status: 'sucess', length: users.length, data: users };
   }
   async GetUserById(id: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: id },
+      select: { firstName: true, lastName: true, email: true, id: true },
     });
     if (!user) {
       return { status: 'error', message: 'User not found' };
@@ -27,6 +30,12 @@ export class UserService {
     }
     const newUser = await this.prisma.user.create({
       data: createUserDto,
+      select: {
+        firstName: true,
+        lastName: true,
+        email: true,
+        id: true,
+      },
     });
     return { status: 'success', data: newUser };
   }
@@ -40,6 +49,12 @@ export class UserService {
     const updatedUser = await this.prisma.user.update({
       where: { id },
       data: updateUserDto,
+      select: {
+        firstName: true,
+        lastName: true,
+        email: true,
+        id: true,
+      },
     });
     return { status: 'success', data: updatedUser };
   }
