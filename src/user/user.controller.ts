@@ -31,7 +31,11 @@ export class UserController {
     return this.userService.CreateUser(createUserDto);
   }
   @Patch(':id')
-  updateUser(id: string, updateUserDto: UpdateUserDto) {
+  updateUser(
+    id: string,
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    updateUserDto: UpdateUserDto,
+  ) {
     return this.userService.UpdateUser(id, updateUserDto);
   }
   @Delete(':id')
