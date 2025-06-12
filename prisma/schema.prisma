@@ -23,3 +23,11 @@ model User {
   phoneNumber String?
   createdAt   DateTime @default(now())
 }
+
+model Movie {
+  id          String @id @default(uuid())
+  title       String
+  description String
+  posterUrl   String
+  image       String
+}
