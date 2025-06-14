@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -21,7 +22,10 @@ export class MovieController {
 
   @Post()
   @Roles(['admin'])
-  async create(@Body() createMovieDto: CreateMovieDto) {
+  async create(
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    createMovieDto: CreateMovieDto,
+  ) {
     return this.movieService.createMovie(createMovieDto);
   }
   @Get()
@@ -30,7 +34,11 @@ export class MovieController {
   }
   @Patch(':id')
   @Roles(['admin'])
-  update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
+  update(
+    @Param('id') id: string,
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    updateMovieDto: UpdateMovieDto,
+  ) {
     return this.movieService.updateMovie(id, updateMovieDto);
   }
   @Delete(':id')
