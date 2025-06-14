@@ -28,6 +28,6 @@ model Movie {
   id          String @id @default(uuid())
   title       String
   description String
-  posterUrl   String
+  videoUrl    String
   image       String
 }
