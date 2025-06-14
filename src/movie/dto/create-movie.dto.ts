@@ -6,7 +6,7 @@ export class CreateMovieDto {
   @IsString({ message: 'description must be a string' })
   description: string;
   @IsUrl({}, { message: 'must be a url' })
-  posterUrl;
+  videoUrl: string;
   @IsUrl({}, { message: 'image must be a url' })
   image: string;
 }
