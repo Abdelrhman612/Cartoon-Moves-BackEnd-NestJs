@@ -11,15 +11,14 @@ import {
 } from '@nestjs/common';
 import { FavoriteService } from './favorite.service';
 import { CreateFavoriteDto } from './dto/create.favorite.dto';
-
 import { Request } from 'express';
 import { AuthGuard } from 'src/utils/Auth.Guards';
 
 @Controller('favorites')
+@UseGuards(AuthGuard)
 export class FavoriteController {
   constructor(private readonly favoriteService: FavoriteService) {}
 
-  @UseGuards(AuthGuard)
   @Post()
   add(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
