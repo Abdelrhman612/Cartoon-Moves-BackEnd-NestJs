@@ -6,11 +6,11 @@ import { CreateFavoriteDto } from './dto/create.favorite.dto';
 export class FavoriteService {
   constructor(private prisma: PrismaService) {}
 
-  async addFavorite(dto: CreateFavoriteDto) {
+  async addFavorite(dto: CreateFavoriteDto, userId: string) {
     return this.prisma.favorite.create({
       data: {
         movieId: dto.movieId,
-        userId: dto.userId,
+        userId,
       },
     });
   }
